@@ -1,0 +1,13 @@
+#content-header{
+    display: flex;
+    flex-direction: row;
+   
+}
+
+#addNote,#title{
+    flex-grow: 1;
+}
+
+#spacer{
+    flex-grow: 5;
+}
