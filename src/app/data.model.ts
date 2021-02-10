@@ -1,4 +1,6 @@
 export interface Data{
+    userId:number,
+    id?:number
     title: string,
-    post: string
+    body: string
 }
