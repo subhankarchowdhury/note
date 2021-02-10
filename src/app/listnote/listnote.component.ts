@@ -9,13 +9,61 @@ import {map} from 'rxjs/operators'
   styleUrls: ['./listnote.component.scss']
 })
 export class ListnoteComponent implements OnInit {
-  notes:Array<Data> = [];
-
-  constructor(private dataService : DataService) { 
-    this.notes = this.dataService.availableNotes
+  notes!: Data[];
+  update: boolean = false;
+  newOrUpdateNote : Data = {
+    userId: 1,
+    id:112233,
+    title:'',
+    body:''
   }
 
-  ngOnInit(): void {}
+  constructor(private dataService : DataService) { 
+    
+  }
+
+  ngOnInit(): void {
+    this.dataService.getNotes().subscribe(res => {
+      this.notes = res.reverse()
+      //console.log(this.notes);
+      
+    })
+  }
+
+  updateNote(note:Data){
+    this.newOrUpdateNote = note
+    this.update = true
+    
+  }
+
+  addNoteOrUpdateNote(note:Data){
+    const isNotePresent = (x:Data) => x.id == note.id;
+    var noteIndex = this.notes.findIndex(isNotePresent)
+    //console.log(noteIndex,note.id);
+    
+    if (noteIndex === -1){
+      console.log('adding new note');
+      
+      this.notes.unshift(note)
+    }else{
+      console.log('updating note');
+      
+      this.notes[noteIndex].title = note.title
+      this.notes[noteIndex].body = note.body
+    }
+  }
+
+  setUpdateFalse(status:boolean){
+    this.update = status
+  }
+
+  deleteNote(note:Data){
+    const isNotePresent = (x:Data) => x.id == note.id;
+    var noteIndex = this.notes.findIndex(isNotePresent)
+    this.notes.splice(noteIndex,1)
+    
+  }
+
   }
 
  

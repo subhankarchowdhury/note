@@ -21,19 +21,15 @@ export class DataService {
     })
   }
 
-  
-  getDefaultNotes() {
-    return 
-  }
-
   getNotes(){
-    return this.availableNotes
+    //return this.availableNotes
+    return this.http.get<Data[]>(this.url)
   }
 
-  createNote(note:Data){
-    //console.log(note);
+  // createNote(note:Data){
+  //   //console.log(note);
     
-    this.availableNotes.unshift(note)
-  }
+  //   this.availableNotes.unshift(note)
+  // }
 }
 
