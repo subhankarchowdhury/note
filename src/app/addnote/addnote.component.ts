@@ -18,10 +18,6 @@ export class AddnoteComponent implements OnInit, OnChanges{
   @Output() sendNotes = new EventEmitter<Data>()
   @Output() sendUpdateOrSaveStatus = new EventEmitter<boolean>()
 
-  priviousTitle: string =''
-  priviousBody: string = ''
-  flag: boolean = false
-
   constructor(private dataService : DataService){
     this.noteForm = new FormGroup({
       'noteTitle' : new FormControl(null, Validators.required),
@@ -42,8 +38,6 @@ export class AddnoteComponent implements OnInit, OnChanges{
     }else{
         this.noteForm.get('noteTitle')?.setValue(changes.toBeUpdateNote.currentValue.title)
         this.noteForm.get('noteBody')?.setValue(changes.toBeUpdateNote.currentValue.body)
-        this.priviousTitle = changes.toBeUpdateNote.currentValue.title
-        this.priviousBody = changes.toBeUpdateNote.currentValue.body
     }
 
   }
@@ -53,8 +47,8 @@ export class AddnoteComponent implements OnInit, OnChanges{
     //console.log(this.isUpdate);
     
     if(this.isUpdate){
-      console.log('update called');
-      this.flag = true
+      //console.log('update called');
+      
       //console.log(this.noteForm.get('noteTitle')?.value);
       
       this.sendNotes.emit({
@@ -77,14 +71,8 @@ export class AddnoteComponent implements OnInit, OnChanges{
       
       this.sendUpdateOrSaveStatus.emit(false)
       this.noteForm.reset()
-    }
-
-    
-
+      }
     
   }
-
-
-
 
 }
