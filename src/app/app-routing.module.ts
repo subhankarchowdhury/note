@@ -5,7 +5,6 @@ import { ListnoteComponent } from './listnote/listnote.component';
 
 const routes: Routes = [
   {path:'', component: ListnoteComponent},
-  {path:'add', component: AddnoteComponent}
 ];
 
 @NgModule({

@@ -1,4 +1,4 @@
-import { Component, DoCheck, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Data } from '../data.model';
 import { DataService } from '../data.service';
@@ -9,13 +9,18 @@ import { DataService } from '../data.service';
   templateUrl: './addnote.component.html',
   styleUrls: ['./addnote.component.scss']
 })
-export class AddnoteComponent implements OnInit{
+export class AddnoteComponent implements OnInit, OnChanges{
 
   noteForm: FormGroup;
   @Input() isUpdate !: boolean
   @Input() toBeUpdateNote !: Data
+
   @Output() sendNotes = new EventEmitter<Data>()
   @Output() sendUpdateOrSaveStatus = new EventEmitter<boolean>()
+
+  priviousTitle: string =''
+  priviousBody: string = ''
+  flag: boolean = false
 
   constructor(private dataService : DataService){
     this.noteForm = new FormGroup({
@@ -28,12 +33,29 @@ export class AddnoteComponent implements OnInit{
   ngOnInit(){      
   }
 
+  ngOnChanges(changes: any) {
+    //console.log(changes.toBeUpdateNote);
+    
+    if(changes.toBeUpdateNote.currentValue.id === 112233){
+        this.noteForm.get('noteTitle')?.setValue('')
+        this.noteForm.get('noteBody')?.setValue('')
+    }else{
+        this.noteForm.get('noteTitle')?.setValue(changes.toBeUpdateNote.currentValue.title)
+        this.noteForm.get('noteBody')?.setValue(changes.toBeUpdateNote.currentValue.body)
+        this.priviousTitle = changes.toBeUpdateNote.currentValue.title
+        this.priviousBody = changes.toBeUpdateNote.currentValue.body
+    }
+
+  }
+
 
   onSubmitOrUpdate(){
     //console.log(this.isUpdate);
     
     if(this.isUpdate){
-      console.log(this.noteForm.get('noteTitle')?.value);
+      console.log('update called');
+      this.flag = true
+      //console.log(this.noteForm.get('noteTitle')?.value);
       
       this.sendNotes.emit({
         userId:this.toBeUpdateNote.userId,
@@ -42,6 +64,10 @@ export class AddnoteComponent implements OnInit{
         body:this.noteForm.get('noteBody')?.value})
       
       this.sendUpdateOrSaveStatus.emit(false)
+      console.log('updating');
+      //this.noteForm.get('noteTitle')?.setValue('')
+      //this.noteForm.get('noteBody')?.setValue('')
+      this.noteForm.reset()
     }else{
       this.sendNotes.emit({
         userId:1,
@@ -50,9 +76,11 @@ export class AddnoteComponent implements OnInit{
         body:this.noteForm.get('noteBody')?.value})
       
       this.sendUpdateOrSaveStatus.emit(false)
+      this.noteForm.reset()
     }
 
-    this.noteForm.reset();
+    
+
     
   }
 

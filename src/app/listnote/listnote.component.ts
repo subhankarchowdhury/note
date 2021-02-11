@@ -51,6 +51,12 @@ export class ListnoteComponent implements OnInit {
       this.notes[noteIndex].title = note.title
       this.notes[noteIndex].body = note.body
     }
+    this.newOrUpdateNote = {
+      userId: 1,
+      id:112233,
+      title:'',
+      body:''
+    }
   }
 
   setUpdateFalse(status:boolean){

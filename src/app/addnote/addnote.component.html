@@ -15,14 +15,14 @@
                     type="text" 
                     formControlName="noteTitle" 
                     [value]=toBeUpdateNote.title
-                    [ngClass]="{updateStyle: !isUpdate}"
+                    [ngClass]="{'updateStyle': !isUpdate}"
                     >
 
                 <small *ngIf="!noteForm.get('noteTitle')?.valid && noteForm.get('noteTitle')?.touched && !isUpdate"
                     class="help-block">Add Valid Title</small>
               </div>
 
-              <div class="form-group">
+              <div class="form-group"> 
 
                 <label for="content">Notes</label>
                 <textarea class="form-control" 
@@ -32,7 +32,8 @@
                     rows="6" 
                     placeholder="Add notes here."
                     [value]=toBeUpdateNote.body
-                    [ngClass]="{updateStyle: !isUpdate}"></textarea>
+                    [ngClass]="{'updateStyle': !isUpdate}"
+                    ></textarea>
                 <small *ngIf="!noteForm.get('noteBody')?.valid && noteForm.get('noteBody')?.touched && !isUpdate"
                     class="help-block">Add Valid Content</small>
 
