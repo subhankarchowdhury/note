@@ -1,22 +1,33 @@
+$invalid : #ff0000;
+$primary : #ff0066;
+$textcolor-secondary : #ffffff;
+
 #content-header{
     display: flex;
     flex-direction: row;
    
 }
 
-#addNote,#title{
+#title{
     flex-grow: 1;
 }
 
-#spacer{
-    flex-grow: 5;
-}
-
 input.ng-invalid.ng-touched.updateStyle{
-    border: 1px red solid;
+    border: 1px $invalid solid;
 }
 
 textarea.ng-invalid.ng-touched.updateStyle{
-    border: 1px red solid;
+    border: 1px $invalid solid;
 }
+
+.newnote-card{
+    background-color: $primary;
+}
+
+h3, label {
+    color: $textcolor-secondary;
+}
+
+
+
 

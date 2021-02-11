@@ -1,5 +1,5 @@
 
-<mat-card style="margin: 50px;">
+<mat-card class="postcard">
   <app-addnote 
     [isUpdate]=update 
     [toBeUpdateNote]=newOrUpdateNote 
@@ -8,13 +8,10 @@
 </mat-card>
 
 
-<div style="margin: 10px;">
+<div class="allnotecontainer">
     <div id="content-header">
-        <h2 id="title">Post Listing</h2>
+      <h2 id="title">Your Notes</h2>
     </div>
-</div>
-
-<div style="margin-top: 40px; margin-left: 10px;margin-right: 10px;">
     <mat-accordion>
         <mat-expansion-panel *ngFor="let note of notes">
           <mat-expansion-panel-header>
@@ -23,8 +20,8 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <p>{{note.body}}</p>
-          <button style="margin-right: 5px;" mat-raised-button color="primary" (click)="updateNote(note)">Update</button>
           <button mat-raised-button color="warn" (click)="deleteNote(note)">Delete</button>
+          <button style="margin-right: 5px;" mat-raised-button color="primary" (click)="updateNote(note)">Update</button>
         </mat-expansion-panel>
     </mat-accordion>
 </div>

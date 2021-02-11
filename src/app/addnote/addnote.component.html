@@ -1,6 +1,6 @@
-<div style="margin: 10px;">
+<div class="newnote-card" style="margin: 10px;">
     <div id="content-header">
-        <h3 id="title">Create new Post</h3>
+        <h3 id="title">{{isUpdate ? 'Update Post' : 'Create new Post'}}</h3>
     </div>
     
     <div >
@@ -14,7 +14,7 @@
                     id="title" 
                     type="text" 
                     formControlName="noteTitle" 
-                    [value]=toBeUpdateNote.title
+                    
                     [ngClass]="{'updateStyle': !isUpdate}"
                     >
 
@@ -31,7 +31,7 @@
                     formControlName="noteBody" 
                     rows="6" 
                     placeholder="Add notes here."
-                    [value]=toBeUpdateNote.body
+                    
                     [ngClass]="{'updateStyle': !isUpdate}"
                     ></textarea>
                 <small *ngIf="!noteForm.get('noteBody')?.valid && noteForm.get('noteBody')?.touched && !isUpdate"
